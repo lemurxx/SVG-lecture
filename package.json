@@ -1,0 +1,36 @@
+{
+    "name": "svg-lecture",
+    "version": "1.0.0",
+    "description": "demo pages",
+    "main": "webpack.config.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/lemurxx/svg-lecture.git"
+    },
+    "author": "Gabi Szilvasy",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/lemurxx/svg-lecture/issues"
+    },
+    "homepage": "https://github.com/lemurxx/svg-lecture#readme",
+    "devDependencies": {
+        "awesome-typescript-loader": "^3.4.1",
+        "css-loader": "^0.28.7",
+        "extract-text-webpack-plugin": "^3.0.2",
+        "file-loader": "^1.1.6",
+        "less": "^2.7.3",
+        "less-loader": "^4.0.5",
+        "path": "^0.12.7",
+        "style-loader": "^0.19.1",
+        "ts-loader": "^3.2.0",
+        "typescript": "^2.6.2",
+        "uglifyjs-webpack-plugin": "^1.1.6",
+        "webpack": "^3.10.0"
+    },"scripts": {
+        "build": "webpack -p -w",
+        "build:dev": "webpack -w"
+      }
+}
