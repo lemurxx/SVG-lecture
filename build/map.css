@@ -1,0 +1,9 @@
+body {
+  background: #272728;
+}
+svg {
+  width: 1000px;
+  margin: 50px auto;
+  display: block;
+  border: solid silver 1px;
+}
