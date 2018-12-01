@@ -1,6 +1,6 @@
 import '../style/map.less';
 
-var tl = new TimelineMax();
+var tl = new (window as any).TimelineMax();
   
 var map = document.getElementById('map');
   

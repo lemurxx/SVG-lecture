@@ -2,8 +2,12 @@ body {
   background: #272728;
 }
 svg {
-  width: 1000px;
-  margin: 50px auto;
   display: block;
+  background: #272728;
+  width: 1000px;
   border: solid silver 1px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
