@@ -7,7 +7,8 @@ module.exports = {
     entry: {
         'map': './src/ts/map.ts',
         'icon': './src/ts/icon.ts',
-        'line': './src/ts/line.ts'
+        'line': './src/ts/line.ts',
+        'word-cloud': './src/ts/word-cloud.ts'
     },
     output: {
         path: path.join(__dirname, '/'),
