@@ -1,0 +1,20 @@
+body{
+    background:#272728;
+}
+svg {
+    stroke:white;
+    fill:none;
+    width:700px;
+    height:700px;
+    margin: 200px auto;
+    display:block;
+    stroke-dasharray:1000 1000;
+    stroke-dashoffset:-1000;
+    animation: draw-line 3s linear forwards;
+    transform:scaleX(-1);
+}
+@keyframes draw-line {
+    100% {
+        stroke-dashoffset: 0;
+    }
+}

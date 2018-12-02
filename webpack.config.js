@@ -5,7 +5,9 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
     devtool: 'eval-source-map',
     entry: {
-        'map': './src/ts/map.ts'
+        'map': './src/ts/map.ts',
+        'icon': './src/ts/icon.ts',
+        'line': './src/ts/line.ts'
     },
     output: {
         path: path.join(__dirname, '/'),

@@ -1,0 +1,49 @@
+body {
+  background: #272728;
+}
+.gears svg {
+  cursor: pointer;
+  width: 240px;
+  height: 240px;
+}
+.gears svg path {
+  fill: whitesmoke;
+  transition: fill 1s, transform 4s;
+}
+.gears #gear1-fill,
+.gears #gear2-fill,
+.gears #gear3-fill {
+  fill: transparent;
+}
+.gears svg:nth-of-type(1):hover path,
+.gears svg:nth-of-type(1):hover #gear1-fill,
+.gears svg:nth-of-type(1):hover #gear2-fill,
+.gears svg:nth-of-type(1):hover #gear3-fill {
+  fill: coral;
+}
+.gears svg:nth-of-type(2):hover #gear1-fill {
+  fill: gold;
+}
+.gears svg:nth-of-type(2):hover #gear2-fill {
+  fill: cadetblue;
+}
+.gears svg:nth-of-type(2):hover #gear3-fill {
+  fill: coral;
+}
+.gears svg:nth-of-type(3):hover #gear1-fill,
+.gears svg:nth-of-type(3):hover #gear1-in,
+.gears svg:nth-of-type(3):hover #gear1-out {
+  transform: rotate 4turn;
+  transform-origin: 390.061, 327.279 ;
+  fill: gold;
+}
+.gears svg:nth-of-type(3):hover #gear2-fill,
+.gears svg:nth-of-type(3):hover #gear2-in,
+.gears svg:nth-of-type(3):hover #gear2-out {
+  fill: cadetblue;
+}
+.gears svg:nth-of-type(3):hover #gear3-fill,
+.gears svg:nth-of-type(3):hover #gear3-in,
+.gears svg:nth-of-type(3):hover #gear3-out {
+  fill: coral;
+}
