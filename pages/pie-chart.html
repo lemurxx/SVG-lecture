@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/F1341D36-66D3-A24C-971F-2D6C121898E1/main.js" charset="UTF-8"></script><script src='https://d3js.org/d3.v4.min.js'></script>
+  <script src='https://d3js.org/d3-scale-chromatic.v1.min.js'></script>
+  <style>
+      body {
+          background:#272728;
+      }
+      .content {
+          width:800px;
+          height:600px;
+          position:absolute;
+          top:50%;
+          left:50%;
+          transform:translate(-50%, -50%);
+      }
+      #pie {
+          float:left;
+      }
+      ul {
+          margin-left:20px;
+          list-style-type:none;
+          font-family:Arial, Helvetica, sans-serif;
+          font-size:28px;
+          color:white;
+          float:right;
+      }
+      
+       li {
+           padding-bottom:10px;
+       }
+       ul  span {
+              width:30px;
+              height:30px;
+              margin-right:10px;
+              display:inline-block;
+              vertical-align: top;
+          }
+
+  </style>
+</head>
+
+<body>
+<div class="content">
+<div id="pie"></div>
+<ul class="legend"></ul>
+</div>
+
+<script>
+var keys = [
+  "A"
+  , "B"
+  , "C"
+  , "D"
+  , "E"
+  , "F"];
+
+var width = 600,
+  height = 600,
+  radius = Math.min(width, height) / 2;
+
+var svg = d3.select("#pie")
+  .append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+svg.append("g").attr("class", "slices");
+
+var pie = d3.pie()
+  .sort(null)
+  .value(function(d) {
+    return d.value;
+  });
+
+var arc = d3.arc()
+  .outerRadius(radius * 1.0)
+  .innerRadius(radius * 0.0);
+
+var outerArc = d3.arc()
+  .innerRadius(radius * 0.5)
+  .outerRadius(radius * 1);
+
+var key = function(d) { return d.data.label; };
+
+var color = d3.scaleOrdinal(["#66c2a5","#fc8d62","#8da0cb","#e78ac3","#a6d854","#ffd92f","#e5c494"]);
+    
+
+update(makeData());
+
+var inter = setInterval(function() {
+    update(makeData());
+  }, 2000);
+
+function mergeWithFirstEqualZero(first, second){
+
+  var secondSet = d3.set();
+
+  second.forEach(function(d) { secondSet.add(d.label); });
+
+  var onlyFirst = first
+    .filter(function(d){ return !secondSet.has(d.label) })
+    .map(function(d) { return {label: d.label, value: 0}; });
+
+  var sortedMerge = d3.merge([ second, onlyFirst ])
+    .sort(function(a, b) {
+        return d3.ascending(a.label, b.label);
+      });
+
+  return sortedMerge;
+}
+
+function makeData() {
+
+  var data = Array();
+
+  for (i = 0; i < keys.length; i++) {
+    if (Math.random() < 0.7) {
+      var ob = {};
+      ob["label"] = keys[i];
+      ob["value"] = randomCount(1, 100);
+      ob["color"] = color(keys[i]);
+      data.push(ob);
+    }
+    console.log(data);
+    createLegend(data);
+  }
+
+ function createLegend(data) {
+      $('.legend').html('');
+      for (var i=0; i< data.length; i++) {
+        var d = data[i];
+        $('.legend').append('<li><span style="background:' + d.color + '"></span>' + d.value +  '</li>');
+      }
+  }
+
+  var sortedData = data.sort(function(a, b) {
+      return d3.ascending(a.label, b.label);
+    });
+
+  return sortedData;
+}
+
+function randomCount(min, max) {
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function update(data) {
+
+    var duration = 500;
+
+    var oldData = svg.select(".slices")
+      .selectAll("path")
+      .data().map(function(d) { return d.data });
+
+    if (oldData.length == 0) oldData = data;
+
+    var was = mergeWithFirstEqualZero(data, oldData);
+    var is = mergeWithFirstEqualZero(oldData, data);
+
+    var slice = svg.select(".slices")
+      .selectAll("path")
+      .data(pie(was), key);
+
+    slice.enter()
+      .insert("path")
+      .attr("class", "slice")
+      .style("fill", function(d) { return color(d.data.label); })
+      .each(function(d) {
+          this._current = d;
+        });
+
+    slice = svg.select(".slices")
+      .selectAll("path")
+      .data(pie(is), key);
+
+    slice.transition()
+      .duration(duration)
+      .attrTween("d", function(d) {
+          var interpolate = d3.interpolate(this._current, d);
+          var _this = this;
+          return function(t) {
+              _this._current = interpolate(t);
+              return arc(_this._current);
+            };
+        });
+
+    slice = svg.select(".slices")
+      .selectAll("path")
+      .data(pie(data), key);
+
+    slice.exit()
+      .transition()
+      .delay(duration)
+      .duration(0)
+      .remove();
+};
+</script>
+
+</body>
+</html>

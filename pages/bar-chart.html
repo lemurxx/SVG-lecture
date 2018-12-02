@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/F1341D36-66D3-A24C-971F-2D6C121898E1/main.js" charset="UTF-8"></script><style>
+    body {
+      margin: 0;
+      font-family: "Helvetica Neue", sans-serif;
+      background: #272728;
+    }
+    svg {
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%, -50%);
+        display:block;
+    }
+    .amount {
+      fill: #000;
+      text-anchor: middle;
+      font-size:24px;
+    }
+
+    .x .tick text, .x .tick line{
+        display:none;
+    }
+
+    .y .tick text {
+        display:none;
+    }
+  
+    line {
+        stroke:gray;
+    }
+    .x.axis .domain {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://unpkg.com/jeezy@1.12.0/lib/jeezy.min.js"></script>
+  <script src="https://unpkg.com/d3-marcon@2.0.2/build/d3-marcon.min.js"></script>
+  <script>
+    var alpha = "abcdefg".split("");
+
+    var setup = d3.marcon()
+        .top(20)
+        .bottom(20)
+        .left(10)
+        .right(10)
+        .width(800)
+        .height(400);
+
+    setup.render();
+
+    var width = setup.innerWidth(), height = setup.innerHeight(), svg = setup.svg();
+
+    var x = d3.scaleBand()
+      .rangeRound([0, width])
+      .domain(alpha)
+      .padding(.2);
+
+    var y = d3.scaleLinear()
+      .range([height, 0])
+      .domain([0, 10]);
+
+    var x_axis = d3.axisBottom(x);
+
+    var y_axis = d3.axisRight(y)
+      .tickSize(width)
+
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(x_axis);
+
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(customYAxis);
+
+    var color = d3.scaleOrdinal(["#66c2a5","#fc8d62","#8da0cb","#e78ac3","#a6d854","#ffd92f","#e5c494"]);
+
+    redraw(random_data());
+
+    d3.interval(function(){
+      redraw(random_data());
+    }, 2000);
+
+    function redraw(data){
+      var x_var = Object.keys(data[0])[0], y_var = Object.keys(data[0])[1];
+      
+      y_axis.tickFormat(function(d, i, ticks){ return i == ticks.length - 1 ? d + " " + y_var + "s" : d; });
+      d3.select(".y.axis").call(customYAxis);
+
+      // join
+      var bar = svg.selectAll(".bar")
+        .data(data, function(d){ return d[x_var]; });
+
+      var amount = svg.selectAll(".amount")
+        .data(data, function(d){ return d[x_var]; });
+
+      // update
+      bar
+        .transition()
+        .ease(d3.easeCircle,7)           // control the speed of the transition
+        .duration(1200) 
+          .attr("y", function(d){ return y(d[y_var]); })
+          .attr("height", function(d){ return height - y(d[y_var]); });
+
+      amount
+        .transition()
+        .ease(d3.easeCircle,7)  
+        .duration(1200) 
+          .attr("y", function(d){ return y(d[y_var]); })
+          .text(function(d){ return d[y_var]; });
+
+      // enter
+      bar.enter().append("rect")
+          .attr("class", "bar")
+          .attr("x", function(d){ return x(d[x_var]); })
+          .attr("y", function(d){ return y(d[y_var]); })
+          .attr("width", x.bandwidth())
+          .attr("height", function(d){ return height - y(d[y_var]); })
+          .attr("fill", function(d){ return color(d[x_var]); });
+
+      amount.enter().append("text")
+          .attr("class", "amount")
+          .attr("x", function(d){ return x(d[x_var]) + x.bandwidth() / 2; })
+          .attr("y", function(d){ return y(d[y_var]); })
+          .attr("dy", 26)
+          .text(function(d){ return d[y_var]; });
+
+    }
+
+    function random_data(){
+      return alpha.map(function(d){
+        return {
+          name: d,
+          value: jz.num.randBetween(1, 10)
+        }
+      });
+    }
+
+    function customYAxis(g) {
+      g.call(y_axis);
+      g.select(".domain").remove();
+      g.selectAll(".tick:not(:first-of-type) line").attr("stroke", "#777").attr("stroke-dasharray", "2,2");
+      g.selectAll(".tick text").attr("x", 4).attr("dy", -4);
+    }
+
+  </script>
+</body>
+</html>
