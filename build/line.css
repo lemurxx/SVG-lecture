@@ -8,13 +8,34 @@ svg {
   height: 700px;
   margin: 200px auto;
   display: block;
-  stroke-dasharray: 1000 1000;
-  stroke-dashoffset: -1000;
-  animation: draw-line 3s linear forwards;
-  transform: scaleX(-1);
 }
 @keyframes draw-line {
   100% {
     stroke-dashoffset: 0;
   }
+}
+@keyframes draw-line-fill {
+  85% {
+    stroke-dashoffset: 0;
+    fill-opacity: 0;
+  }
+  100% {
+    fill-opacity: .5;
+  }
+}
+#palace {
+  width: 500px;
+}
+#palace path {
+  stroke: white;
+  fill: white;
+  fill-opacity: 0;
+  stroke-dasharray: 2500 2500;
+  stroke-dashoffset: -2500;
+  animation: draw-line 5s linear forwards;
+}
+svg#bear {
+  stroke-dasharray: 10 10;
+  stroke-dashoffset: -1000;
+  animation: draw-line 10s linear infinite;
 }
