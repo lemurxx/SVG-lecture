@@ -1,0 +1,9 @@
+body {
+  background: #272728;
+  text-align: center;
+  padding-top: 100px;
+}
+svg {
+  display: inline-block;
+  margin: 10px;
+}

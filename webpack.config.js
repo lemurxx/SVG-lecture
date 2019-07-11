@@ -8,7 +8,8 @@ module.exports = {
         'map': './src/ts/map.ts',
         'icon': './src/ts/icon.ts',
         'line': './src/ts/line.ts',
-        'word-cloud': './src/ts/word-cloud.ts'
+        'word-cloud': './src/ts/word-cloud.ts',
+        'filter-discrete': './src/ts/filter-discrete.ts'
     },
     output: {
         path: path.join(__dirname, '/'),
@@ -35,22 +36,24 @@ module.exports = {
                 test: /\.less$/,
                 loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'less-loader'] })
             }, {
-            
+
                 test: /\.(jpe?g|png|gif|svg)$/i,
-                loader: "file-loader",//"url-loader?limit=8192"
+                loader: "file-loader", //"url-loader?limit=8192"
                 options: {
-                     outputPath: 'build/',
-                     name: '[name].[ext]',
+                    outputPath: 'build/',
+                    name: '[name].[ext]',
                 }
             }, {
                 test: /\.(eot|svg|ttf|otf|woff|woff2)$/,
                 loader: 'file-loader',
                 options: {
-                     outputPath: 'build/',
-                      name: '[name].[ext]',
+                    outputPath: 'build/',
+                    name: '[name].[ext]',
                 }
-            }]
-    }, node: {
+            }
+        ]
+    },
+    node: {
         fs: 'empty',
         child_process: 'empty'
     }

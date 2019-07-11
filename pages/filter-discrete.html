@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="../build/filter-discrete.css" rel="stylesheet"></link>
+</head>
+
+<body>
+    <svg width="400" height="600" viewBox="0 0 400 600">
+   
+        <filter id="filter1" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+	<feComponentTransfer x="0%" y="0%" width="100%" height="100%" in="dropShadow1" result="componentTransfer">
+    <feFuncR type="discrete" tableValues="0 1"/>
+		<feFuncG type="discrete" tableValues="0 1"/>
+		<feFuncB type="discrete" tableValues="0 1"/>
+		<feFuncA type="table" tableValues="0 1"/>
+  	</feComponentTransfer>
+  </filter>
+    <image xlink:href="https://cdn.pixabay.com/photo/2013/05/30/18/21/tabby-114782_960_720.jpg" height="100%" x="0" y="0"
+           filter="url(#filter1)"></image>   
+</svg>
+    <svg width="400" height="600" viewBox="0 0 400 600">
+   
+        <filter id="filter2" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+	<feComponentTransfer x="0%" y="0%" width="100%" height="100%" >
+    		<feFuncR type="discrete" tableValues="0 .5 1"/>
+		<feFuncG type="discrete" tableValues="0 .5 1"/>
+		<feFuncB type="discrete" tableValues="0 .5 1"/>
+		<feFuncA type="table" tableValues="0 1"/>
+  	</feComponentTransfer>
+  </filter>
+    <image xlink:href="https://cdn.pixabay.com/photo/2013/05/30/18/21/tabby-114782_960_720.jpg" height="100%" x="0" y="0"
+           filter="url(#filter2)"></image>   
+</svg>
+
+    <svg width="400" height="600" viewBox="0 0 400 600">
+   
+        <filter id="filter3" x="-20%" y="-20%" width="140%" height="140%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+	<feComponentTransfer x="0%" y="0%" width="100%" height="100%" >
+    		<feFuncR type="discrete" tableValues="0 0.25 .5 0.75 1"/>
+		<feFuncG type="discrete" tableValues="0 0.25 .5 0.75 1"/>
+		<feFuncB type="discrete" tableValues="0 0.25 .5 0.75 1"/>
+		<feFuncA type="table" tableValues="0 1"/>
+  	</feComponentTransfer>
+  </filter>
+    <image xlink:href="https://cdn.pixabay.com/photo/2013/05/30/18/21/tabby-114782_960_720.jpg" height="100%" x="0" y="0"
+           filter="url(#filter3)"></image>   
+</svg>
+</body>
+
+</html>
