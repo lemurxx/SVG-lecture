@@ -1,0 +1,32 @@
+html,
+body {
+  padding: 0;
+  background: crimson;
+  text-align: center;
+}
+.parent {
+  width: 800px;
+  height: 850px;
+  margin: auto;
+  overflow: hidden;
+}
+svg {
+  width: 1400px;
+  border: solid;
+}
+.author {
+  font-family: verdana;
+  position: fixed;
+  bottom: 0;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  color: white;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: bold;
+}
+.author a {
+  color: indigo;
+}
